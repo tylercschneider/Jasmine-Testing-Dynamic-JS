@@ -141,7 +141,7 @@ $(function() {
         });
 
         it('loads new content', function(done) {
-            expect(content0).not.toEqual(content1)
+            expect(content0).not.toEqual(content1);
             done();
         });
 

@@ -27,9 +27,9 @@ $(function() {
         });
 
 
-        /* TODO: Write a test that loops through each feed
-         * in the allFeeds object and ensures it has a URL defined
-         * and that the URL is not empty.
+        /* Loop through allFeeds and ensure that it 
+        has defined data by checking that it is defined and that it
+        has a length > 0.
          */
 
          it('each have a url defined', function() {
@@ -42,9 +42,8 @@ $(function() {
             });
          });
 
-        /* TODO: Write a test that loops through each feed
-         * in the allFeeds object and ensures it has a name defined
-         * and that the name is not empty.
+        /* Loop through allFeeds and check that each has a defined name with
+        length > 0
          */
          it('each have a name defined', function() {
 
@@ -59,10 +58,8 @@ $(function() {
 
     /* TODO: Write a new test suite named "The menu" */
     describe('The menu', function() {
-        /* TODO: Write a test that ensures the menu element is
-         * hidden by default. You'll have to analyze the HTML and
-         * the CSS to determine how we're performing the
-         * hiding/showing of the menu element.
+        /* Test that menu is intially hidden from viewer by looking for menu-hidden class
+        by checking the generated html document.
          */
          it('is initially hidden', function() {
 
@@ -71,10 +68,8 @@ $(function() {
          });
 
 
-         /* TODO: Write a test that ensures the menu changes
-          * visibility when the menu icon is clicked. This test
-          * should have two expectations: does the menu display when
-          * clicked and does it hide when clicked again.
+         /* Simulate user click of menu-icon using jQuery in order to check that menu
+         displays with user response and hides with subsequent interaction.
           */
           it('toggles when menu icon is clicked', function() {
 
@@ -91,11 +86,8 @@ $(function() {
 
     /* TODO: Write a new test suite named "Initial Entries" */
     describe('Initial Entries', function() {
-        /* TODO: Write a test that ensures when the loadFeed
-         * function is called and completes its work, there is at least
-         * a single .entry element within the .feed container.
-         * Remember, loadFeed() is asynchronous so this test will require
-         * the use of Jasmine's beforeEach and asynchronous done() function.
+        /* Use asynchronous testing functions in Jasmine to make sure there is at minimum of one
+        entry in the feed after the feed has finished loading.
          */
          var entries = 0;
 
@@ -107,7 +99,7 @@ $(function() {
 
          it('contains a minimum of one entry element', function(done) {
 
-            $('.entry').each(function(entry){
+            $('.feed .entry').each(function(entry){
 
                 entries++;
 
@@ -121,23 +113,22 @@ $(function() {
 
     /* TODO: Write a new test suite named "New Feed Selection" */
     describe('New Feed Selection', function() {
-        /* TODO: Write a test that ensures when a new feed is loaded
-         * by the loadFeed function that the content actually changes.
-         * Remember, loadFeed() is asynchronous.
+        /* Use asynchronous testing function to ensure that the feed changes 
+        when a second feed is loaded. Storing html value of first entry element of both first and 
+        second feed, ensure that they are not equal to pass test.
          */
-         var content0;
-         var content1;
+	    var content0;
+	    var content1;
 
         beforeEach(function(done) {
             loadFeed(0, function() {
-                content0 = $('.entry:first').data();
-                done();
+                content0 = ($('.feed .entry:first').html());
+            
+	            loadFeed(1, function() {
+	                content1 = ($('.feed .entry:first').html());
+	                 done();
+	            }, 1);
             }, 1);
-            loadFeed(1, function() {
-                content0 = $('.entry:first').data();
-                done();
-            }, 1);
-
         });
 
         it('loads new content', function(done) {
